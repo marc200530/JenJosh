@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JENJOSH QUIZ</title>
+<style>
+:root{--p:#7048ff;--pink:#ff4f9a;--yellow:#ffc83d;--blue:#38bdf8;--green:#28c76f;--red:#ff5577;--ink:#29253d}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--ink);background:linear-gradient(135deg,#fff2fb,#eef7ff 50%,#fff8dd);min-height:100vh}
+header{height:76px;background:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 6%;box-shadow:0 3px 18px #0001;position:sticky;top:0;z-index:10}.brand{font-size:27px;font-weight:1000;color:var(--p)}.brand b{color:var(--pink)}.brand small{display:block;font-size:9px;letter-spacing:3px;color:#8c87a0;text-align:center;margin-top:-2px}.nav button{border:0;background:#f0ecff;color:var(--p);padding:10px 14px;border-radius:12px;font-weight:800;cursor:pointer}
+main{max-width:1050px;margin:auto;padding:25px 18px 50px}.hero{text-align:center;padding:25px 10px}.hero .kids{font-size:70px;letter-spacing:8px;filter:drop-shadow(0 8px 7px #0002)}h1{font-size:clamp(42px,8vw,76px);margin:4px 0;color:var(--p);letter-spacing:-3px}h1 span{color:var(--pink)}.hero p{color:#77718b;font-size:18px;max-width:650px;margin:10px auto 25px;line-height:1.5}.btn{border:0;border-radius:16px;padding:14px 24px;font-weight:900;cursor:pointer;transition:.2s}.btn:hover{transform:translateY(-2px) scale(1.01)}.primary{background:linear-gradient(135deg,var(--p),#9b72ff);color:white;box-shadow:0 12px 25px #7048ff44}.secondary{background:white;color:var(--p);border:2px solid #e7e1ff}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:20px}.card{background:#fff;border-radius:25px;padding:24px;box-shadow:0 12px 35px #46326d18;border:2px solid #ffffff}.card:nth-child(1){border-color:#ffe0ef}.card:nth-child(2){border-color:#e2dcff}.card:nth-child(3){border-color:#d8f3ff}.icon{font-size:43px}.card h3{margin:12px 0 7px}.card p{color:#77718b;line-height:1.45;margin:0}
+.hidden{display:none!important}.panel{background:#fff;border-radius:28px;padding:28px;box-shadow:0 18px 50px #46326d22;max-width:800px;margin:20px auto}.panel h2{margin-top:0;color:var(--p)}
+.quiztop{display:flex;justify-content:space-between;align-items:center;gap:12px}.timer{background:#fff3cd;color:#8b6500;padding:10px 15px;border-radius:14px;font-weight:900}.bar{height:11px;background:#eeeaf7;border-radius:20px;margin:16px 0;overflow:hidden}.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--pink),var(--p),var(--blue));transition:.35s}.question{font-size:30px;font-weight:900;line-height:1.25;margin:28px 0}.answers{display:grid;grid-template-columns:1fr 1fr;gap:15px}.answer{min-height:80px;background:white;border:3px solid #e9e6f2;border-radius:18px;padding:16px;text-align:left;font-weight:800;cursor:pointer;box-shadow:0 5px 12px #00000009}.answer:hover{border-color:var(--p);background:#faf8ff}.answer.correct{border-color:var(--green);background:#eafff2}.answer.wrong{border-color:var(--red);background:#fff0f3}.answer:disabled{cursor:default}.quizfoot{display:flex;justify-content:space-between;align-items:center;margin-top:23px}.score{font-weight:900;color:var(--p)}
+.result{text-align:center}.trophy{font-size:70px}.final{font-size:75px;color:var(--p);font-weight:1000}.pill{display:inline-block;background:#eeeaff;color:var(--p);font-weight:900;border-radius:30px;padding:8px 14px}
+.field{margin:12px 0}.field input{width:100%;padding:12px;border:2px solid #e8e5f0;border-radius:12px}.row{border:2px solid #eeeaf5;border-radius:17px;padding:15px;margin:12px 0}.row input{margin:5px 0}
+@media(max-width:700px){.cards,.answers{grid-template-columns:1fr}.hero .kids{font-size:55px}.question{font-size:24px}}
+</style>
+</head>
+<body>
+<header><div class="brand">JEN<b>JOSH</b> ✨<small>LEARN • PLAY • SHINE</small></div><div class="nav"><button onclick="show('home')">Home</button><button onclick="show('create')">Create Quiz</button></div></header>
+<main>
+<section id="home">
+<div class="hero">
+<div class="kids">👦🏻 🌈 👧🏻</div>
+<h1>JEN<span>JOSH</span> QUIZ!</h1>
+<p>A fun and colorful quiz game made for kids. Answer, listen to fun sounds, earn points, and celebrate your learning! 🎉</p>
+<button class="btn primary" onclick="startQuiz()">🎮 PLAY QUIZ</button>
+</div>
+<div class="cards"><div class="card"><div class="icon">🔊</div><h3>Fun Sounds</h3><p>Hear a cheerful sound when you answer and a celebration when you get it right!</p></div><div class="card"><div class="icon">⭐</div><h3>Earn Points</h3><p>Answer correctly and collect points as you move through the quiz.</p></div><div class="card"><div class="icon">🎉</div><h3>Celebrate!</h3><p>Finish the quiz and see your final score with a fun celebration.</p></div></div>
+</section>
+
+<section id="create" class="hidden"><div class="panel"><h2>✏️ Create Your Own Quiz</h2><p>Add your own questions and choices.</p><div id="editor"></div><button class="btn secondary" onclick="addQ()">＋ Add Question</button> <button class="btn primary" onclick="saveQuiz()">Save & Play 🚀</button></div></section>
+
+<section id="quiz" class="hidden"><div class="panel"><div class="quiztop"><b id="num">Question</b><div class="timer">⏱️ <span id="time">20</span>s</div></div><div class="bar"><i id="progress"></i></div><div id="question" class="question"></div><div id="answers" class="answers"></div><div class="quizfoot"><span class="score">⭐ Score: <span id="score">0</span></span><button id="next" class="btn primary hidden" onclick="next()">Next ➜</button></div></div></section>
+
+<section id="result" class="hidden"><div class="panel result"><div class="trophy">🏆🎊</div><span class="pill">QUIZ COMPLETE!</span><h2>Your Final Score</h2><div class="final" id="final">0</div><p id="message"></p><button class="btn primary" onclick="startQuiz()">🔄 Play Again</button> <button class="btn secondary" onclick="show('home')">🏠 Home</button></div></section>
+</main>
+<script>
+const demo=[
+{q:"What is physical education mainly concerned with?",a:["Developing physical fitness and healthy living","Only winning sports competitions","Memorizing sports history","Playing video games"],c:0},
+{q:"Which activity is a locomotor movement?",a:["Running","Bending","Twisting","Stretching"],c:0},
+{q:"Which is an example of a non-locomotor movement?",a:["Running","Jumping forward","Bending","Skipping"],c:2},
+{q:"Why is warming up important before physical activity?",a:["It prepares the body for movement","It makes the activity longer","It replaces exercise","It guarantees a perfect score"],c:0},
+{q:"Which skill uses controlled movement of an object with the hands?",a:["Throwing","Standing","Bending","Stretching"],c:0}
+];
+let quiz=[...demo],i=0,score=0,locked=false,t=20,interval,editor=0;
+function show(id){['home','create','quiz','result'].forEach(x=>document.getElementById(x).classList.toggle('hidden',x!==id));if(id==='create'&&!document.getElementById('editor').children.length)addQ()}
+function sound(kind){try{let C=window.AudioContext||window.webkitAudioContext,ctx=new C(),o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);let notes=kind==='good'?[523,659,784]:kind==='bad'?[180,130]:[392,523,659,784];notes.forEach((n,k)=>setTimeout(()=>{o.frequency.value=n;g.gain.value=.08;o.start();setTimeout(()=>o.stop(),110)},k*90))}catch(e){}}
+function startQuiz(){i=0;score=0;show('quiz');render()}
+function render(){clearInterval(interval);locked=false;t=20;document.getElementById('num').textContent=`Question ${i+1} of ${quiz.length}`;document.getElementById('progress').style.width=(i/quiz.length*100)+'%';document.getElementById('question').textContent=quiz[i].q;document.getElementById('score').textContent=score;document.getElementById('next').classList.add('hidden');document.getElementById('time').textContent=t;let box=document.getElementById('answers');box.innerHTML='';quiz[i].a.forEach((x,n)=>{let b=document.createElement('button');b.className='answer';b.textContent=String.fromCharCode(65+n)+'. '+x;b.onclick=()=>answer(n,b);box.appendChild(b)});interval=setInterval(()=>{t--;document.getElementById('time').textContent=t;if(t<=0){clearInterval(interval);answer(-1,null)}},1000)}
+function answer(n,btn){if(locked)return;locked=true;clearInterval(interval);let correct=quiz[i].c;document.querySelectorAll('.answer').forEach((b,k)=>{b.disabled=true;if(k===correct)b.classList.add('correct')});if(n===correct){score+=100+t*5;sound('good')}else{if(btn)btn.classList.add('wrong');sound('bad')}document.getElementById('score').textContent=score;document.getElementById('next').classList.remove('hidden')}
+function next(){if(i<quiz.length-1){i++;render()}else{sound('finish');document.getElementById('final').textContent=score;document.getElementById('message').textContent=score>=400?"Amazing! You did a fantastic job! 🌟":score>=200?"Great work! Keep learning and keep playing! 🎉":"Nice try! Practice makes progress! 💪";show('result')}}
+function addQ(){editor++;let d=document.createElement('div');d.className='row';d.innerHTML=`<b>Question ${editor}</b><div class="field"><input class="eq" placeholder="Your question"></div><input class="ea" placeholder="Choice A"><br><input class="ea" placeholder="Choice B"><br><input class="ea" placeholder="Choice C"><br><input class="ea" placeholder="Choice D"><div class="field"><input class="ec" type="number" min="1" max="4" value="1" placeholder="Correct choice"></div>`;document.getElementById('editor').appendChild(d)}
+function saveQuiz(){let made=[...document.querySelectorAll('.row')].map(r=>{let q=r.querySelector('.eq').value.trim(),a=[...r.querySelectorAll('.ea')].map(x=>x.value.trim()),c=+r.querySelector('.ec').value-1;return q&&a.every(Boolean)?{q,a,c:Math.max(0,Math.min(3,c))}:null}).filter(Boolean);if(made.length){quiz=made;startQuiz()}else alert('Please complete at least one question.')}
+</script>
+</body></html>
